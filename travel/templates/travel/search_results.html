@@ -1,0 +1,21 @@
+<!-- search_results.html -->
+
+{% extends 'travel/base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h2>Search Results for "{{ form.cleaned_data.query }}"</h2>
+
+{% if results %}
+    <ul>
+    {% for destination in results %}
+            <img src="{{ destination.image.url }}" width="500" height="340">
+            <a href="{% url 'destination_detail' destination.pk %}">{{ destination.name }}</a>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No destinations found!</p>
+{% endif %}
+{% endblock %}

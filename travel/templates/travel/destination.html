@@ -1,0 +1,27 @@
+{% extends "travel/base.html" %}
+{% block title%} Home {% endblock %} 
+{% block content %}
+
+
+    <h2 class="my-4">Destinations</h2>
+
+<div class="d-flex flex-wrap justify-content-start">
+    {% for destination in destinations %}
+    <div class="flex-grow-0 flex-shrink-0 mb-4 px-2" style="width: 50%;" style="height: 50%;">
+        <div class="card shadow-sm h-100">
+            <a href="{% url 'destination_detail' destination.pk %}">
+                <div class="card-img-top-wrapper">
+                    <img src="{{ destination.image.url }}" class="card-img-top" alt="{{ destination.name }}">
+                </div>
+            </a>
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ destination.name }}</h5>
+                <div class="mt-auto">
+                    <a href="{% url 'destination_detail' destination.pk %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

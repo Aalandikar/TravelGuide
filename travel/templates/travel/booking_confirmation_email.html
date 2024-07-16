@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            background-color: #fff;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .thank-you {
+            text-align: center;
+            font-style: italic;
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Thank you for your booking!</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Booking ID</th>
+                <td>{{ booking.id }}</td>
+            </tr>
+            <tr>
+                <th>Destination</th>
+                <td>{{ booking.destination.name }}</td>
+            </tr>
+            <tr>
+                <th>Check-in Date</th>
+                <td>{{ booking.check_in }}</td>
+            </tr>
+            <tr>
+                <th>Check-out Date</th>
+                <td>{{ booking.check_out }}</td>
+            </tr>
+            <tr>
+                <th>Number of Adults</th>
+                <td>{{ booking.num_adults }}</td>
+            </tr>
+            <tr>
+                <th>Number of Children</th>
+                <td>{{ booking.num_children }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>₹{{ booking.amount }}</td>
+            </tr>
+        </table>
+        <p class="thank-you">We look forward to welcoming you!</p>
+    </div>
+</body>
+</html>

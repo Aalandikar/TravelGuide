@@ -1,0 +1,63 @@
+
+{% extends 'travel/base.html' %}
+{% load static %}
+{% block title %}{{ destination.name }}{% endblock %}
+
+{% block content %}
+
+<div class="carousel">
+    <div class="carousel-track-container">
+        <ul class="carousel-track">
+            {% for place in must_visit_places %}
+                <li class="carousel-slide {% if forloop.first %}current-slide{% endif %}">
+                    <h3>{{ place.name }}</h3>
+                    <img class="carousel-image" src="{{ place.image.url }}" alt="{{ place.name }}" width="1000px" height="auto">
+                    <p>{{ place.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="carousel-buttons">
+        <button class="carousel-button left-button">◀</button>
+        <button class="carousel-button right-button">▶</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const leftButton = document.querySelector('.left-button');
+        const rightButton = document.querySelector('.right-button');
+        const slideWidth = slides[0].getBoundingClientRect().width;
+
+        const setSlidePosition = (slide, index) => {
+            slide.style.left = slideWidth * index + 'px';
+        };
+
+        slides.forEach(setSlidePosition);
+
+        const moveToSlide = (track, currentSlide, targetSlide) => {
+            track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
+            currentSlide.classList.remove('current-slide');
+            targetSlide.classList.add('current-slide');
+        };
+
+        leftButton.addEventListener('click', e => {
+            const currentSlide = track.querySelector('.current-slide');
+            const prevSlide = currentSlide.previousElementSibling;
+            if (prevSlide) {
+                moveToSlide(track, currentSlide, prevSlide);
+            }
+        });
+
+        rightButton.addEventListener('click', e => {
+            const currentSlide = track.querySelector('.current-slide');
+            const nextSlide = currentSlide.nextElementSibling;
+            if (nextSlide) {
+                moveToSlide(track, currentSlide, nextSlide);
+            }
+        });
+    });
+</script>
+{% endblock %}

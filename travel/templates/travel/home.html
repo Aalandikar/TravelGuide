@@ -1,0 +1,129 @@
+{% extends 'travel/base.html' %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    .about-us-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 50px;
+        background: #f2f2f2;
+        color: #2c3e50;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+    }
+    .about-us-container h1, .about-us-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+    .about-us-container p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        animation: slideIn 1.5s ease-in-out;
+    }
+    .team-section {
+        width: 100%;
+        text-align: center;
+    }
+    .team-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .team-member {
+        text-align: center;
+        flex: 1 1 200px;
+        max-width: 200px;
+    }
+    .team-member img {
+        width: 100%;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+    .team-member img:hover {
+        transform: scale(1.05);
+    }
+    .team-member h3 {
+        margin-top: 10px;
+        font-size: 1.2em;
+    }
+    .team-member p {
+        font-size: 1em;
+        color: #7f8c8d;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes slideIn {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+        .hero-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .hero-img:hover {
+            transform: scale(1.05);
+        }
+</style>
+
+<div class="about-us-container">
+    <div class="hero-img">
+        <div class="d-flex align-items-center justify-content-center">
+            <img src="{% static 'travel/images/meghalaya.jpeg' %}" alt="hero-img" class="hero-img" style="width: 100%; height: auto;">
+        </div>
+    </div>
+    
+    <h2 style="color: red;"><B>Roaming Routes</B></h2>
+    <p>Roaming Routes is dedicated to helping you explore the world's most amazing destinations. Whether you're looking for hidden gems or popular tourist spots, we have something for every traveler.</p>
+        <p>Our mission is to make travel planning easy and enjoyable. From detailed destination guides to curated lists of things to do and places to eat, we provide all the information you need to plan your perfect trip.</p>
+        <p>We believe that travel is not just about reaching a destination, but about the journey and experiences along the way. Join us as we discover the road less traveled.</p>
+
+    <div class="team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="{% static 'travel/images/person1.png' %}" alt="Team Member 1">
+                <h3>Aman Mishra</h3>
+                <p>CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'travel/images/person3.png' %}" alt="Team Member 2">
+                <h3>Rahul Kamble</h3>
+                <p>MANAGER</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'travel/images/person2.png' %}" alt="Team Member 3">
+                <h3>Venessa Disuza</h3>
+                <p>EXECUTIVE</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

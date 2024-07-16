@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Confirmation{% endblock %}
+
+{% block content %}
+    <h2>Payment Confirmation</h2>
+    <p>Thank you for your payment.</p>
+    <table class="table table-striped">
+        <tr>
+            <th>Booking ID</th>
+            <td>{{ booking.id }}</td>
+        </tr>
+        <tr>
+            <th>Destination</th>
+            <td>{{ booking.destination.name }}</td>
+        </tr>
+        <tr>
+            <th>Check-in Date</th>
+            <td>{{ booking.check_in }}</td>
+        </tr>
+        <tr>
+            <th>Check-out Date</th>
+            <td>{{ booking.check_out }}</td>
+        </tr>
+        <tr>
+            <th>Number of Adults</th>
+            <td>{{ booking.num_adults }}</td>
+        </tr>
+        <tr>
+            <th>Number of Children</th>
+            <td>{{ booking.num_children }}</td>
+        </tr>
+        <tr>
+            <th>Total Amount</th>
+            <td>₹{{ booking.amount }}</td>
+        </tr>
+    </table>
+     
+    <a href="{% url 'send_confirmation_email' booking.id %}" class="btn btn-primary">ok</a> 
+
+{% endblock %}

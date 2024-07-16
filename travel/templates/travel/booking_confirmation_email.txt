@@ -1,0 +1,9 @@
+Thank you for your booking.
+
+Booking ID: {{ booking.id }}
+Destination: {{ booking.destination.name }}
+Check-in Date: {{ booking.check_in }}
+Check-out Date: {{ booking.check_out }}
+Number of Adults: {{ booking.num_adults }}
+Number of Children: {{ booking.num_children }}
+Total Amount: ₹{{ booking.amount }}

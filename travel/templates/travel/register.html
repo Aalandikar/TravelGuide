@@ -1,0 +1,145 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        /* Custom CSS for popup-like form styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .password-toggle {
+            position: relative;
+        }
+        .password-toggle .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .btn-register {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-register:hover {
+            background-color: #218838;
+        }
+        .popup-header {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        .popup-header h2 {
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+        .popup-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .popup-footer a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .popup-footer a:hover {
+            color: #0056b3;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="popup-header">
+            <h2>Registration</h2>
+        </div>
+        {% if errmsg %}
+            <div class="alert alert-danger">
+                {{errmsg}}
+            </div>
+        {% endif %}
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="input1" class="form-label"><strong>Username:</strong></label>
+                <input type="text" name="uname" class="form-control" id="input1" placeholder="Enter Username">
+            </div>
+            <div class="mb-3">
+                <label for="input2" class="form-label"><strong>Email:</strong></label>
+                <input type="email" name="uemail" class="form-control" id="input2" placeholder="Enter Email">
+            </div>
+            <div class="mb-3 password-toggle">
+                <label for="input3" class="form-label"><strong>Password:</strong></label>
+                <input type="password" name="upass" class="form-control" id="input3" placeholder="Enter Password">
+                <span class="toggle-password" onclick="togglePasswordVisibility('input3')">👁️</span>
+            </div>
+            <div class="mb-3 password-toggle">
+                <label for="input4" class="form-label"><strong>Confirm Password:</strong></label>
+                <input type="password" name="ucpass" class="form-control" id="input4" placeholder="Confirm Password">
+                <span class="toggle-password" onclick="togglePasswordVisibility('input4')">👁️</span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-register" value="Register" />
+                Already a User? <a href="/login">Login</a>
+                {% if success %}
+                    <div class="alert alert-success">
+                        {{success}}
+                    </div>
+                {% endif %}
+            </div>
+        </form>
+        <div class="popup-footer">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+</body>
+</html>

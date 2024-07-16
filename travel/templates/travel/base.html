@@ -1,0 +1,141 @@
+{% load static %}
+{% include 'header.html' %}
+
+{% block 'main' %}
+
+
+
+
+<!doctype html>
+<html>
+    <head>
+        <title>Roaming Routes....</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <style>
+                    body {
+                background-image: url('{% static "travel/images/bg7.png" %}'); /* Replace with your image path */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                font-family: Arial, sans-serif; /* Example font family */
+                margin: 0;
+                padding: 0;
+            }
+            nav {
+            background-color: #34495e;
+            padding: 1em 0;
+            text-align: left;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0px 15px; 
+            text-align: left;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #f39c12;
+        }
+        .content-wrapper {
+            padding: 20px;
+        }
+        .login-btn { 
+        padding: 10px 20px; 
+        background-color: #007bff; 
+        color: #fff; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        display:flex; 
+        justify-content:flex-end; 
+        align-items:center;  
+        } 
+        </style>
+    </head>
+    <body>
+    <!--<div>
+     <nav>
+        <ul>
+            
+            <li><a href="{% url 'destination' %}">Destinations</a></li>
+            <li>     <form class="form-inline" method="GET" action="{% url 'search' %}">
+                <input class="form-control" type="text" name="query" placeholder="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form></li>
+            <div  style="text-align: right;">
+               <li ><a class="login-btn" href="{% url 'login' %}" >Login</a></li> -->
+                <!-- {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="login-btn" href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="login-btn" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="login-btn" href="/register">Register</a>
+                </li>
+                {% endif %}
+                </div>
+        </ul>
+    </nav>  
+    </div>-->
+        <div class="jumbotron text-center fade-in">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="{% static 'travel/images/logo.PNG' %}" alt="Destination Image" class="destination-image">
+                <div>
+                    <h1>Roaming Routes</h1>
+                    <p>Discover the Road Less Traveled....</p>
+                </div>
+            </div>
+        </div>
+
+        <main class="container my-4"> 
+            <div class="row">
+                <div>
+                    {% block content %} {% endblock %}
+                </div>
+            </div>
+        </main>
+
+        <!-- <footer class="bg-dark text-white text-center footer-spacing ">
+                <p>&copy; 2024 Roaming Routes. All rights reserved.</p>
+            </div>
+        </footer> -->
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const togglePassword = document.querySelector('.toggle-password');
+                const passwordInput = document.querySelector('.password-container input');
+    
+                togglePassword.addEventListener('click', function (e) {
+                    // toggle the type attribute
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+    
+                    // toggle the eye / eye slash icon
+                    this.classList.toggle('fa-eye');
+                    this.classList.toggle('fa-eye-slash');
+                });
+            });
+        </script>
+    </body>
+</html>
+{% include 'footer.html' %}
+
+{% endblock 'main' %}

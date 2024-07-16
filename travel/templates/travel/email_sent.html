@@ -1,0 +1,10 @@
+{% extends 'travel/base.html' %}
+
+{% block title %}Email Sent{% endblock %}
+
+{% block content %}
+    <h2>Email Sent</h2>
+    <p>Your booking confirmation email has been sent successfully.</p>
+    
+    <a href="{% url 'home' %}">Back to home</a>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends "travel/base.html" %}
+{% block title %}Order Created{% endblock %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .confirmation-container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 600px;
+        margin: auto;
+    }
+    .confirmation-container h1 {
+        text-align: center;
+        color: #333333;
+    }
+    .confirmation-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .confirmation-container table, .confirmation-container th, .confirmation-container td {
+        border: 1px solid #dddddd;
+    }
+    .confirmation-container th, .confirmation-container td {
+        padding: 12px;
+        text-align: left;
+    }
+    .confirmation-container th {
+        background-color: #f2f2f2;
+        color: #333333;
+    }
+    .confirmation-container tr:nth-child(even) td {
+        background-color: #f9f9f9;
+    }
+    .confirmation-container tr:nth-child(odd) td {
+        background-color: #ffffff;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 10px;
+    }
+    .btn-primary {
+        background-color: #3399cc;
+        color: white;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #2878a0;
+    }
+    .btn-secondary {
+        background-color: #f2f2f2;
+        color: #333333;
+        border: 1px solid #cccccc;
+    }
+    .btn-secondary:hover {
+        background-color: #e0e0e0;
+    }
+</style>
+
+{% block content %}
+<div class="confirmation-container">
+    <h1>Booking Confirmation</h1>
+    <p>Thank you for Booking with us!</p>
+    <p>Your booking has been successfully confirmed.</p>
+    <table class="table table-striped">
+        <tr>
+            <th>Booking ID</th>
+            <td>{{ booking.id }}</td>
+        </tr>
+        <tr>
+            <th>Destination</th>
+            <td>{{ booking.destination.name }}</td>
+        </tr>
+        <tr>
+            <th>Check-in Date</th>
+            <td>{{ booking.check_in }}</td>
+        </tr>
+        <tr>
+            <th>Check-out Date</th>
+            <td>{{ booking.check_out }}</td>
+        </tr>
+        <tr>
+            <th>Number of Adults</th>
+            <td>{{ booking.num_adults }}</td>
+        </tr>
+        <tr>
+            <th>Number of Children</th>
+            <td>{{ booking.num_children }}</td>
+        </tr>
+        <tr>
+            <th>Total Amount</th>
+            <td>₹{{ booking.amount }}</td>
+        </tr>
+    </table>
+</div>
+
+<div style="text-align: center;">
+    <button id="rzp-button" class="btn btn-primary">Pay With RazorPay</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back to home</a>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.getElementById('rzp-button').onclick = function(e){
+        var options = {
+            key: "{{ razorpay_key_id }}",
+            amount: "{{ payment.amount }}",
+            currency: "INR",
+            order_id: "{{ payment.id }}",
+            name: "{{ request.user.username }}",
+            description: "Booking ID: {{ booking.id }}",
+            handler: function (response){
+                window.location.href = "{% url 'payment_confirmation' booking.id %}";
+            },
+            prefill: {
+                name: "{{ request.user.first_name }} {{ request.user.last_name }}",
+                email: "{{ request.user.email }}"
+            },
+            theme: {
+                color: "#3399cc"
+            }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+    }
+</script>
+{% endblock %}

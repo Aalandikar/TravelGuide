@@ -1,0 +1,109 @@
+
+{% load static%}
+
+{% block title %}Login{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .form-container {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container .form-group {
+            margin-bottom: 15px;
+        }
+        .form-container .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container .form-group button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container .form-group button:hover {
+            background: #0056b3;
+        }
+        .toggle-password {
+            cursor: pointer;
+            float: right;
+            margin-top: -30px;
+            margin-right: 10px;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+
+
+{% block content %}
+<div class="container">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %} 
+        {% if form.errors %}
+        <div class="error-messages">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group password-container">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <span toggle="#password-field" class="fa fa-fw fa-eye toggle-password"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+        <a href="{% url 'password_reset' %}">Forgot Password?</a> | <a href="{% url 'register' %}">Sign Up</a>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById('password');
+            var passwordType = passwordInput.getAttribute('type');
+            if (passwordType === 'password') {
+                passwordInput.setAttribute('type', 'text');
+            } else {
+                passwordInput.setAttribute('type', 'password');
+            }
+        }
+    </script>
+</body>
+</html>
+{% endblock %}
