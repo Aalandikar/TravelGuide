@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Booking, Destination, ThingToExplore, FamousRestaurant, MustVisitPlace
+from .models import Booking, Destination, ThingToExplore, MustVisitPlace
 from .forms import BookingForm, SearchForm, UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
@@ -11,9 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import PasswordResetView
 from django.urls import reverse_lazy
-from .forms import CustomPasswordResetForm 
 from django.contrib.auth.models import User
 
 def home(request):
@@ -97,14 +95,6 @@ def things_to_explore(request, pk):
         'things_to_explore': things_to_explore,
     })
 
-def famous_restaurants(request, pk):
-    destination = get_object_or_404(Destination, pk=pk)
-    famous_restaurants = FamousRestaurant.objects.filter(destination=destination)
-    return render(request, 'travel/famous_restaurants.html', {
-        'destination': destination,
-        'famous_restaurants': famous_restaurants,
-    })
-
 def must_visit_places(request, pk):
     destination = get_object_or_404(Destination, pk=pk)
     must_visit_places = MustVisitPlace.objects.filter(destination=destination)
@@ -179,27 +169,5 @@ def send_confirmation_email(request,booking_id):
     msg.send()
     return render(request, 'travel/email_sent.html', {'booking': booking})
     #return HttpResponse("Email sent successfully!")
-
-
-
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-from django.urls import reverse_lazy
-from .forms import CustomPasswordResetForm, CustomSetPasswordForm
-
-class CustomPasswordResetView(PasswordResetView):
-    template_name = 'password_reset.html'
-    form_class = CustomPasswordResetForm
-    success_url = reverse_lazy('password_reset_done')
-
-class CustomPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'password_reset_done.html'
-
-class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'password_reset_confirm.html'
-    form_class = CustomSetPasswordForm
-    success_url = reverse_lazy('password_reset_complete')
-
-class CustomPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'password_reset_complete.html'
 
 

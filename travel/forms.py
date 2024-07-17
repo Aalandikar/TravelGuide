@@ -1,6 +1,6 @@
 from datetime import date
 from django import forms
-from .models import Booking, Enquiry
+from .models import Booking
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm 
 from django.core.exceptions import ValidationError
@@ -74,13 +74,3 @@ class SearchForm(forms.Form):
         # Additional cleaning or validation can be done here
         return query
     
-from django.contrib.auth.forms import PasswordResetForm
-
-class CustomPasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-
-from django.contrib.auth.forms import SetPasswordForm
-
-class CustomSetPasswordForm(SetPasswordForm):
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))

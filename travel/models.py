@@ -23,14 +23,6 @@ class ThingToExplore(models.Model):
     def __str__(self):
         return self.name
 
-class FamousRestaurant(models.Model):
-    destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='famous_restaurants')
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    image = models.ImageField(upload_to='famous_restaurants/')
-
-    def __str__(self):
-        return self.name
 
 class MustVisitPlace(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='must_visit_places')
@@ -55,12 +47,3 @@ class Booking(models.Model):
         return f"{self.user.username} - {self.destination.name}"
     
 
-class Enquiry(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    destination = models.ForeignKey('Destination', on_delete=models.CASCADE)
-    message = models.TextField()
-    phone = models.CharField(max_length=15, default='') 
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Enquiry by {self.user.username} for {self.destination.name}"
