@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock %}
+<style>
+    .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Form Styles */
+form {
+    margin: 0;
+}
+
+form p {
+    margin: 10px 0;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Alert Styles */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.alert li {
+    margin-bottom: 5px;
+}
+
+/* Success Page Styles */
+.success-message {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.success-message h2 {
+    color: #28a745;
+}
+
+.success-message p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.success-message .btn {
+    margin-top: 20px;
+}
+</style>
+{% block content %}
+<h2>Thank You!</h2>
+<p>Your message has been sent successfully. We will get back to you shortly.</p>
+<a class="btn btn-primary"  href="{% url 'home' %}">Back to home</a>
+{% endblock %}

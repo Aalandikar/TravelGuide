@@ -67,10 +67,10 @@
             </div>
             <div class="col-md-6 destination-info">
                 <h1>{{ destination.name }}</h1>
-                <p>Description: {{ destination.description }}</p>
-                <p>Best Time to Visit: {{ destination.best_time_to_visit }}</p>
-                <p>Price for Adults: ₹{{ destination.price_adult }}</p>
-                <p>Price for Children: ₹{{ destination.price_child }}</p>
+                <p><strong>Description: </strong> {{ destination.description }}</p>
+                <p><strong>Best Time to Visit: </strong>{{ destination.best_time_to_visit }}</p>
+                <p><strong>Price for Adults:</strong> ₹{{ destination.price_adult }}</p>
+                <p><strong>Price for Children: </strong>₹{{ destination.price_child }}</p>
                 <a href="{% url 'book_destination' destination.pk %}" class="btn btn-primary">Book</a>
                 <a href="{% url 'destination' %}" class="btn btn-primary">Home</a>
             </div>

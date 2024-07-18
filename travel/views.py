@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Booking, Destination, ThingToExplore, MustVisitPlace
-from .forms import BookingForm, SearchForm, UserRegistrationForm
+from .forms import BookingForm, ContactForm, SearchForm, UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -13,6 +13,9 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from openpyxl import Workbook, load_workbook
+from openpyxl.utils import get_column_letter
+import os
 
 def home(request):
         return render(request, 'travel/home.html')
@@ -171,3 +174,40 @@ def send_confirmation_email(request,booking_id):
     #return HttpResponse("Email sent successfully!")
 
 
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            
+            # Define the file path
+            file_path = 'C:/Users/Ankita/Desktop/contact_messages.xlsx'.strip()
+            
+            if not os.path.exists(file_path):
+                # Create a new workbook and add a header row if the file doesn't exist
+                wb = Workbook()
+                ws = wb.active
+                ws.title = 'Messages'
+                headers = ['Name', 'Email', 'Message']
+                ws.append(headers)
+            else:
+                # Load the existing workbook
+                wb = load_workbook(file_path)
+                ws = wb.active
+            
+            # Append the new message
+            ws.append([name, email, message])
+            
+            # Save the workbook
+            wb.save(file_path)
+
+            return redirect('contact_success')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact_us.html', {'form': form})

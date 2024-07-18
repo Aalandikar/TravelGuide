@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 class SearchForm(forms.Form):
     query = forms.CharField(label='Search', max_length=100)
 
-
 class BookingForm(forms.ModelForm):
     check_in = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     check_out = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
@@ -16,6 +15,10 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['check_in', 'check_out', 'num_adults', 'num_children']
+        labels = {
+            'num_adults': 'Number of adults',
+            'num_children': 'Number of children'
+        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -74,3 +77,7 @@ class SearchForm(forms.Form):
         # Additional cleaning or validation can be done here
         return query
     
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, label='Your Name')
+    email = forms.EmailField(label='Your Email')
+    message = forms.CharField(widget=forms.Textarea, label='Your Message')

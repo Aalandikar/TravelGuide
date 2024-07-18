@@ -2,8 +2,47 @@
 {% block title %}{{ destination.name }}{% endblock %}
 {% block content %}
 <h2>Book This Destination: {{ destination.name }}</h2>
+<style>
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.alert li {
+    margin-bottom: 5px;
+}
+
+</style>
 <form method="POST">
     {% csrf_token %}
+    {% if booking_form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field in booking_form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in booking_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     {{ booking_form.as_p }}
     <button type="submit" class="btn btn-primary">Book Now</button>
 </form>
