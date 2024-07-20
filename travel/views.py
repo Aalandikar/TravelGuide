@@ -150,7 +150,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 
@@ -186,7 +186,7 @@ def contact_us(request):
             message = form.cleaned_data['message']
             
             # Define the file path
-            file_path = 'C:/Users/Ankita/Desktop/contact_messages.xlsx'.strip()
+            file_path = 'E:/contact_messages.xlsx'.strip()
             
             if not os.path.exists(file_path):
                 # Create a new workbook and add a header row if the file doesn't exist
